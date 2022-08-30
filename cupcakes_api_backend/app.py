@@ -83,3 +83,12 @@ def delete_cupcake(id):
     db.session.commit()
 
     return (jsonify({"delete": f"{id} was deleted"}), 200)
+
+
+@app.route('/api/cupcakes/<search>')
+def get_search_by_flavor(search):
+
+    finded_cupcake = Cupcake.query.filter(Cupcake.flavor.ilike(f'{search}%'))
+    cupcakes = [Cupcake.serialice(c) for c in finded_cupcake]
+
+    return (jsonify(cupcake=cupcakes), 200)

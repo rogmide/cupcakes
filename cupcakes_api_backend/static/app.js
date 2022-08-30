@@ -58,4 +58,18 @@ $(".cupcake_holder").on("click", ".delete-button", async function (e) {
   alert("Cupcake is deleted");
 });
 
+$(".search_inp").on("keyup", async function (e) {
+  let search = $(".search_inp").val();
+  if ($(".search_inp").val() != "") {
+    res = await axios.get(`/api/cupcakes/${search}`);
+    $(".cupcake_holder").empty();
+    for (const ck of res.data.cupcake) {
+      $(".cupcake_holder").append(append_cupcake(ck));
+    }
+  } else {
+    $(".cupcake_holder").empty();
+    get_cupcakes();
+  }
+});
+
 get_cupcakes();
