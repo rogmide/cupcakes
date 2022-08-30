@@ -1,3 +1,9 @@
+/*
+==============================================
+Code Render The Initial CupCakes to the Homepage
+==============================================
+*/
+
 async function get_cupcakes() {
   res = await axios.get(`/api/cupcakes`);
 
@@ -6,6 +12,12 @@ async function get_cupcakes() {
   }
 }
 
+/*
+==============================================
+Function to give format to the div that is 
+holding the cupcake detail
+==============================================
+*/
 function append_cupcake(ck) {
   return `
     <div class="single-holder" data-cupcake-id=${ck.id}>
@@ -22,10 +34,9 @@ function append_cupcake(ck) {
 
 /*
 ==============================================
-Upper Code Render The CupCakes to the Homepage
+Add new cupcake to db
 ==============================================
 */
-
 $(".add_new_cupcake").on("click", async function (e) {
   e.preventDefault();
 
@@ -46,6 +57,11 @@ $(".add_new_cupcake").on("click", async function (e) {
   alert("New cupcake added");
 });
 
+/*
+==============================================
+Handle Delete 
+==============================================
+*/
 $(".cupcake_holder").on("click", ".delete-button", async function (e) {
   e.preventDefault();
 
@@ -58,10 +74,17 @@ $(".cupcake_holder").on("click", ".delete-button", async function (e) {
   alert("Cupcake is deleted");
 });
 
+/*
+==============================================
+Handle Search cupcake by flavor
+==============================================
+*/
 $(".search_inp").on("keyup", async function (e) {
   let search = $(".search_inp").val();
+
   if ($(".search_inp").val() != "") {
     res = await axios.get(`/api/cupcakes/${search}`);
+
     $(".cupcake_holder").empty();
     for (const ck of res.data.cupcake) {
       $(".cupcake_holder").append(append_cupcake(ck));
