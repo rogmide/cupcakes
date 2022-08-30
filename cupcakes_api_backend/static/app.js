@@ -8,7 +8,7 @@ async function get_cupcakes() {
 
 function append_cupcake(ck) {
   return `
-    <div data-cupcake-id=${ck.id}>
+    <div class="single-holder" data-cupcake-id=${ck.id}>
         <img src="${ck.image}" alt="(no image provided)">
         <div>
             <p class=cup_description> ${ck.flavor.toUpperCase()} ${
@@ -20,17 +20,42 @@ function append_cupcake(ck) {
     </div>`;
 }
 
-get_cupcakes();
-
 /*
 ==============================================
 Upper Code Render The CupCakes to the Homepage
 ==============================================
 */
 
-$(".add_new_cupcake").on("click", function (e) {
-    e.preventDefault();
-    alert('Finish WOrk here Need too keep going')
+$(".add_new_cupcake").on("click", async function (e) {
+  e.preventDefault();
+
+  let flavor = $("#flavor").val();
+  let size = $("#size").val();
+  let rating = $("#rating").val();
+  let image = $("#image").val();
+
+  const new_cupcake = await axios.post(`/api/cupcakes`, {
+    flavor,
+    rating,
+    size,
+    image,
+  });
+
+  let new_add = append_cupcake(new_cupcake.data.cupcake);
+  $(".cupcake_holder").append(new_add);
+  alert("New cupcake added");
 });
 
+$(".cupcake_holder").on("click", ".delete-button", async function (e) {
+  e.preventDefault();
 
+  let id = $(e.target).parents(".single-holder").data("cupcake-id");
+
+  $(e.target).parents(".single-holder").remove();
+
+  await axios.delete(`/api/cupcakes/${id}`);
+
+  alert("Cupcake is deleted");
+});
+
+get_cupcakes();

@@ -15,7 +15,10 @@ img {
 
 .cupcake_holder {
   display: flex;
-  flex-wrap: nowrap;
+  /* flex-direction: row; */
+  /* flex-wrap: nowrap; */
+  flex-wrap: wrap;
+  width: 90vw;
 }
 
 .cup_description {

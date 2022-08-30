@@ -10,11 +10,11 @@ class AddCupCakeForm(FlaskForm):
     flavor = StringField('Flavor: ',  validators=[
         InputRequired(message='Name is Required')])
 
-    size = SelectField('Size: ',  choices=[('sm', 'Small'), ('md', 'Medium'), ('lg', 'Large')], validators=[
+    size = SelectField('Size: ',  choices=[('Small', 'Small'), ('Medium', 'Medium'), ('Large', 'Large')], validators=[
         InputRequired(message='Name is Required')])
 
     rating = FloatField('Rating: ',  validators=[
         InputRequired(message='Rating is Required')])
 
-    image = StringField('Flavor: ',  validators=[URL(
+    image = StringField('Image: ',  validators=[URL(
         require_tld=True, message='Enter Valid URL')])
