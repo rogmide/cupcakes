@@ -1,6 +1,7 @@
 from shelve import DbfilenameShelf
 from flask import Flask, request, redirect, render_template, jsonify
 from models import Cupcake, db, connect_db
+from _form import AddCupCakeForm
 
 app = Flask(__name__)
 
@@ -16,7 +17,9 @@ connect_db(app)
 def show_homepage():
     '''Show home page for the user'''
 
-    return render_template('home.html')
+    cupcake_form = AddCupCakeForm()
+
+    return render_template('home.html', cupcake_form=cupcake_form)
 
 
 @app.route('/api/cupcakes')

@@ -1,6 +1,36 @@
-{% extends 'base.html' %} {% block title %} Title Here {% endblock %} {% block
-    content %}
+{% extends 'base.html' %} {% block title %} Add Cupcake {% endblock %} {% block
+content %}
 
-    <h1 class="welcome">Base Template </h1>
+<div class="container">
+  <h1 class="display-5 text-center">Add New Cupcake</h1>
+  <div class="row justify-content-center">
+    <div class="col-md-8">
+      <form>
+        {{ cupcake_form.hidden_tag() }} {% for field in cupcake_form if
+        field.widget.input_type != 'hidden' %}
+
+        <div class="form-group">
+          {{ field.label }} {{ field(class_="form-control") }} {% for err in
+          field.errors %}
+          <small class="form-text"> {{ err }} </small>
+
+          {% endfor %}
+        </div>
+
+        {% endfor %}
+
+        <br />
+        <button class="add_new_cupcake btn btn-sm btn-success">Submit</button>
+        <a class="btn btn-danger btn-sm" href="/">Go Back</a>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="cupcake_holder">
+    
+  </div>
+</div>
 
 {% endblock%}
