@@ -12,6 +12,13 @@ app.config['SECRET_KEY'] = "123"
 connect_db(app)
 
 
+@app.route('/')
+def show_homepage():
+    '''Show home page for the user'''
+
+    return render_template('home.html')
+
+
 @app.route('/api/cupcakes')
 def get_all_cupcakes():
     '''Get all the cupcakes from the db'''
@@ -68,7 +75,7 @@ def delete_cupcake(id):
     '''Delete a new cupcake to db'''
 
     cupcake = Cupcake.query.get_or_404(id)
-    
+
     db.session.delete(cupcake)
     db.session.commit()
 
